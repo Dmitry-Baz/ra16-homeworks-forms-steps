@@ -3,7 +3,7 @@ import "./style.css";
 
 interface Workout {
   id: string;
-  date: string; // "DD.MM.YY"
+  date: string; 
   km: number;
 }
 
@@ -23,13 +23,11 @@ const App = () => {
     const date = dateInput.value.trim();
     const km = parseFloat(kmInput.value);
 
-    // Валидация формата даты и км
     if (!/^\d{2}\.\d{2}\.\d{2}$/.test(date) || isNaN(km) || km <= 0) {
       alert("Неверный формат даты или расстояния");
       return;
     }
 
-    // Проверка на существующую дату
     const existingIndex = workouts.findIndex((w) => w.date === date);
     if (existingIndex >= 0) {
       const updated = [...workouts];
@@ -42,7 +40,6 @@ const App = () => {
       setWorkouts((prev) => [{ id: Date.now().toString(), date, km }, ...prev]);
     }
 
-    // Очистка формы
     dateInput.value = "";
     kmInput.value = "";
   };
@@ -51,7 +48,6 @@ const App = () => {
     setWorkouts((prev) => prev.filter((w) => w.id !== id));
   };
 
-  // Сортировка: от новой к старой (интерпретируем как 20YY)
   const sorted = [...workouts].sort((a, b) => {
     const [d1, m1, y1] = a.date.split(".").map(Number);
     const [d2, m2, y2] = b.date.split(".").map(Number);
